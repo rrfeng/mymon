@@ -18,12 +18,13 @@ type Cfg struct {
 	LogFile      string
 	LogLevel     int
 	FalconClient string
-	Endpoint string
+	Endpoint     string
 
-	User string
-	Pass string
-	Host string
-	Port int
+	User    string
+	Pass    string
+	Host    string
+	Port    int
+	Cluster string
 }
 
 var cfg Cfg
@@ -99,6 +100,12 @@ func (conf *Cfg) readConf(file string) error {
 	}
 
 	conf.Port, err = c.GetInt("mysql", "port")
+
+	conf.Cluster, err = c.GetString("mysql", "cluster")
+	if err != nil {
+		return err
+	}
+
 	return err
 }
 
